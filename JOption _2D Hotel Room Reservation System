@@ -1,0 +1,108 @@
+package hotelReservationSystem;
+import javax.swing.JOptionPane;
+
+public class HotelReservation_JOption { 
+	//2D Hotel Room Reservation System
+	//Lab 7
+	//Hotel Reservation System to a GUI based application using the JOptionPane Dialogs.
+
+	public static void main(String[] args) {
+		int hotel[][] = new int[7][5]; //7(rows) floors, 5(columns) rooms per floor
+		int choice = 0;
+
+		while (choice != 4) {
+			String menu = "HOTEL RESERVATION SYSTEM\n\n"
+					+ "1. View Rooms\n"
+					+ "2. Check In\n"
+					+ "3. Check Out\n"
+					+ "4. Exit \n\n"
+					+ "Enter your choice:";
+
+			String input = JOptionPane.showInputDialog(menu);
+			if (input == null) {
+				break; // exit if user cancels
+			}
+			
+			choice = Integer.parseInt(input);
+
+			switch (choice) {
+			// 1. VIEW ROOMS
+			case 1:
+				String display = "ROOM STATUS:\n\n";
+
+				for (int i = 6; i >= 0; i--) { // Floor 7 to 1
+					display += "Floor " + (i + 1) + ": [ ";
+					for (int j = 0; j < 5; j++) {
+						display += hotel[i][j] + " ";
+					}
+					display += "]\n";
+				}
+
+				JOptionPane.showMessageDialog(null, display);
+				break;
+
+				// 2. CHECK IN
+			case 2:
+				int floor_In = Integer.parseInt(
+						JOptionPane.showInputDialog("Enter Floor Number (1-7):"));
+				int room_In = Integer.parseInt(
+						JOptionPane.showInputDialog("Enter Room Number (1-5):"));
+
+				int iIn = floor_In - 1;
+				int jIn = room_In - 1;
+
+				if (hotel[iIn][jIn] == 0) {
+
+					int confirm = JOptionPane.showConfirmDialog(
+							null,
+							"Room is available. Do you want to check in?",
+							"Confirm Check-In",
+							JOptionPane.YES_NO_OPTION);
+
+					if (confirm == JOptionPane.YES_OPTION) {
+						hotel[iIn][jIn] = 1;
+						JOptionPane.showMessageDialog(null, "Check-in successful!");
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Room already occupied!");
+				}
+				break;
+
+				// 3. CHECK OUT
+			case 3:
+				int floor_Out = Integer.parseInt(
+						JOptionPane.showInputDialog("Enter Floor Number (1-7):"));
+				int room_Out = Integer.parseInt(
+						JOptionPane.showInputDialog("Enter Room Number (1-5):"));
+
+				int iOut = floor_Out - 1;
+				int jOut = room_Out - 1;
+
+				if (hotel[iOut][jOut] == 1) {
+
+					int confirmOut = JOptionPane.showConfirmDialog(
+							null,
+							"Room is occupied. Do you want to check out?",
+							"Confirm Check-Out",
+							JOptionPane.YES_NO_OPTION);
+
+					if (confirmOut == JOptionPane.YES_OPTION) {
+						hotel[iOut][jOut] = 0;
+						JOptionPane.showMessageDialog(null, "Check-out successful!");
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Room is already empty!");
+				}
+				break;
+
+				// 4. EXIT
+			case 4:
+				JOptionPane.showMessageDialog(null, "Exiting system... Goodbye!");
+				break;
+			default:
+				JOptionPane.showMessageDialog(null, "Invalid choice! Please try again.");
+			}
+		}
+	}
+}
