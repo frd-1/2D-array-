@@ -1,7 +1,7 @@
-package Delosa;
+package HRS_Lab5;
 import java.util.*;
 
-public class Delosa_Lab5 {
+public class Lab5 {
 	
 	//Hotel Reservation System (Java, 2D Array)
 
